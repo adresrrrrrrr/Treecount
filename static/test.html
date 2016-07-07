@@ -1,0 +1,98 @@
+<html>
+<head>
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<h1>List of Trees</h1>
+<h3>
+<p style="color : Black;font-size: 25px;"> This is a noble work. This is an application for tree counting and tracking. </p> </h3>
+
+</div>
+
+<div id="section">
+<!--h1>Tree1 Description</h1-->
+
+</div>
+<div id="map"></div>
+<div id="map_div" style="width: 1325px; height: 450px"></div>
+<div id="footer">
+<!--button type="button">Click Me!</button-->
+<button onclick="getcord()" style="background-color: Green;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;">Generate Map</button>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG5smMf9XWO-PTk2y4Sgyu2hjsobp_lUc&callback=initMap" type="text/javascript"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+	var mapcoord=[];
+	function getcord(){
+	console.log("jhghj");
+	
+	var xmlhttp = new XMLHttpRequest();
+var url = "http://50.112.160.16:5000/getcoords";
+
+xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        myFunction(xmlhttp.responseText);
+    }
+}
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function myFunction(response) {
+    var arr = JSON.parse(response);
+    
+    mapcoord.push(['Lat', 'Long', 'Name']);
+    var i;
+    for (i = 0; i < arr.length; i++) {
+		
+		
+		var lat= parseFloat(arr[i].latitude);
+		var longt=parseFloat(arr[i].longitude);
+		mapcoord.push([lat,longt,arr[i].owner]);
+		
+    }
+    google.charts.load("current", {packages:["map"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+		var data = google.visualization.arrayToDataTable(mapcoord);
+		
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+		 map.draw(data, {tooltip: true});
+		}
+		google.maps.event.addDomListener(window, 'load', drawChart());
+
+	}
+	
+	}
+	
+      
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    </script>
+<!-- Replace the value of the key parameter with your own API key. --> 
+<!--script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG5smMf9XWO-PTk2y4Sgyu2hjsobp_lUc&callback=initMap"> <!/script-->
+</body>
+</html>
+<!--<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=restaurants%20in%20Dallas%2C%20TX%2C%20United%20States&key=AIzaSyBG5smMf9XWO-PTk2y4Sgyu2hjsobp_lUc" allowfullscreen-->
+<!--/iframe-->
+<!--div id="footer"-->
+<!--/div-->

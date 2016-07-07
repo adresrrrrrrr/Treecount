@@ -8,9 +8,11 @@ class mongosave:
 	
 	def save_mongodb(self,**kwargs):
 		try:
-			pdb.set_trace()
 			mDBTable=self.mDB[kwargs["table_name"]]
-			ins_record={"filename":kwargs["image_name"],"path":kwargs["path"]}
+			lat=kwargs["latitude"]
+			longt=kwargs["longitude"]
+			pdb.set_trace()	
+			ins_record={"filename":kwargs["image_name"],"path":kwargs["path"],"latitude":lat,"longitude":longt,"treename":kwargs["treename"],"timestamp":kwargs["timestamp"],"owner":kwargs["owner"]}
 			mDBTable.insert_one(ins_record)
 		except Exception:
 			 return Exception
@@ -18,9 +20,13 @@ class mongosave:
 		return "Saved successfuly"
 	
 	def search(self,**kwargs):
-		mDBTable=mDB[kwargs["table_name"]]
+		mDBTable=self.mDB[kwargs["table_name"]]
 		result=mDBTable.find()
 		return result
 		
-
-
+	def retrieveAll(self,**kwargs):
+		mDBTable=self.mDB[kwargs["table_name"]]
+		allRecords= mDBTable.find()
+		print allRecords
+		return allRecords
+	
