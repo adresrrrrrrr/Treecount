@@ -11,7 +11,6 @@ class mongosave:
 			mDBTable=self.mDB[kwargs["table_name"]]
 			lat=kwargs["latitude"]
 			longt=kwargs["longitude"]
-			pdb.set_trace()	
 			ins_record={"filename":kwargs["image_name"],"path":kwargs["path"],"latitude":lat,"longitude":longt,"treename":kwargs["treename"],"timestamp":kwargs["timestamp"],"owner":kwargs["owner"]}
 			mDBTable.insert_one(ins_record)
 		except Exception:
